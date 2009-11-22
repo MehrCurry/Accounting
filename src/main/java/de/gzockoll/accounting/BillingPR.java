@@ -2,7 +2,8 @@ package de.gzockoll.accounting;
 
 import java.util.Date;
 
-import de.gzockoll.quantity.Quantity;
+import de.gzockoll.types.money.CurrencyUnit;
+import de.gzockoll.types.money.Money;
 
 public class BillingPR extends EachEntryPR {
 
@@ -20,7 +21,7 @@ public class BillingPR extends EachEntryPR {
 
 	private Money transform(Entry e) {
 		assertThatUnitIsOk(e);
-		return new Money((long) (e.getQuantity().getAmount()*RATE), CurrencyUnit.EURO);
+		return new Money((e.getQuantity().getAmount()*RATE), CurrencyUnit.EURO);
 	}
 
 	private void assertThatUnitIsOk(Entry e) {
