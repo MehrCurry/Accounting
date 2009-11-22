@@ -16,7 +16,7 @@ public class AccountingPlan {
 	}
 
 	public static SummaryAccount createSummaryAccount(String key, Unit unit) {
-		SummaryAccount a=new SummaryAccount(unit);
+		SummaryAccount a=new SummaryAccount(key,unit);
 		return (SummaryAccount) addAccount(key, a);
 	}
 

@@ -9,12 +9,21 @@ import de.gzockoll.quantity.Unit;
 public class SummaryAccount implements Account {
 	private Collection<Account> accounts=new HashSet<Account>();
 	private Unit unit;
+	private String name;
 
 	public Unit getUnit() {
 		return unit;
 	}
 
-	public SummaryAccount(Unit unit) {
+	
+	public String getName() {
+		return name;
+	}
+
+
+	public SummaryAccount(String name,Unit unit) {
+		super();
+		this.name=name;
 		this.unit=unit;
 	}
 

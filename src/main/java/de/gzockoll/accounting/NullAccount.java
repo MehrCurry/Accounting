@@ -31,4 +31,9 @@ public class NullAccount implements Account {
 	private static class None implements Unit {
 		
 	}
+
+	public String getName() {
+		
+		return "<Null Account>";
+	}
 }

@@ -76,7 +76,7 @@ public class DetailAccount implements Account {
 	@Override
 	public String toString() {
 		StringBuffer s=new StringBuffer();
-		s.append("Account " + saldo() + "\n");
+		s.append("Account " + name +": " + saldo() + "\n");
 		for (Entry e:entries) {
 			s.append("  " + e + "\n");
 		}
