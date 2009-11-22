@@ -26,7 +26,7 @@ public class AccountingPlan {
 	}
 
 	public static DetailAccount createDetailAccount(String key, Unit unit) {
-		DetailAccount a=new DetailAccount(unit);
+		DetailAccount a=new DetailAccount(key,unit);
 		return (DetailAccount) addAccount(key, a);
 	}
 }

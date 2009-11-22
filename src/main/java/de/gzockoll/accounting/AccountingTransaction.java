@@ -7,7 +7,7 @@ import java.util.HashSet;
 import de.gzockoll.quantity.Quantity;
 import de.gzockoll.types.money.Money;
 
-public class AccountingTransaction {
+public class AccountingTransaction implements Subject {
 	private Date date;
 	private Collection<Entry> entries = new HashSet<Entry>();
 	private boolean posted = false;
@@ -48,6 +48,7 @@ public class AccountingTransaction {
 	public void post() {
 		assertNotPosted();
 		assertCanPost();
+		AuditLog.add("transaction.post",this);
 		for (Entry e : entries) {
 			e.post();
 		}
@@ -63,4 +64,8 @@ public class AccountingTransaction {
 		return trans;
 	}
 
+	@Override
+	public String toString() {
+		return "AccountingTransaction: posted=" + posted + ", Balance=" + balance() + ", Entries=" + entries.size();
+	}
 }

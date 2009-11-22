@@ -8,9 +8,16 @@ import de.gzockoll.quantity.Quantity;
 import de.gzockoll.quantity.Unit;
 
 public class DetailAccount implements Account {
-	public DetailAccount(Unit unit) {
+	private String name;
+	
+	DetailAccount(String name,Unit unit) {
 		super();
+		this.name=name;
 		this.unit = unit;
+	}
+
+	public String getName() {
+		return name;
 	}
 
 	/* (non-Javadoc)

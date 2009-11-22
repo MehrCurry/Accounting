@@ -14,7 +14,7 @@ public class AccountTest {
 
 	@Before
 	public void setUp() throws Exception {
-		account=new DetailAccount(Units.KWH);
+		account=new DetailAccount("JUnit",Units.KWH);
 		assertThat(account.entryCount(),is(0));
 	}
 

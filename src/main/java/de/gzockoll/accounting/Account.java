@@ -6,6 +6,8 @@ import de.gzockoll.quantity.Quantity;
 import de.gzockoll.quantity.Unit;
 
 public interface Account {
+	public String getName();
+	
 	public abstract Unit getUnit();
 
 	public abstract Collection<Entry> getEntries();
