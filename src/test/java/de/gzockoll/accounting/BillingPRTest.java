@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import de.gzockoll.quantity.Quantity;
+import de.gzockoll.quantity.SimpleQuantity;
 import de.gzockoll.types.money.CurrencyUnit;
 import de.gzockoll.types.money.Money;
 
@@ -25,15 +26,15 @@ public class BillingPRTest {
 
 	@Test
 	public void testBilling() {
-		new Entry(kwh, new Quantity(100, Units.KWH), "Verbrauch").post();
+		new Entry(kwh, new SimpleQuantity(100, Units.KWH), "Verbrauch").post();
 		
 		BillingPR pr=new BillingPR();
 		pr.processAccount(kwh);
 		
 		assertThat(meier.entryCount(),is(1));
-		assertThat(meier.saldo(),is((Quantity)new Money(-19,CurrencyUnit.EURO)));
+		assertThat(meier.saldo(),is((Quantity)new Money(-19.00,CurrencyUnit.EURO)));
 		assertThat(income.entryCount(),is(1));
-		assertThat(income.saldo(),is((Quantity)new Money(19,CurrencyUnit.EURO)));
+		assertThat(income.saldo(),is((Quantity)new Money(19.00,CurrencyUnit.EURO)));
 		
 		System.out.println(kwh);
 		System.out.println(meier);

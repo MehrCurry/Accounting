@@ -2,7 +2,9 @@ package de.gzockoll.accounting;
 
 import java.util.Date;
 
-public class EveningDaySplitPR extends EachEntryPR {
+import de.gzockoll.quantity.Quantity;
+
+public class EveningDaySplitPR<T extends Quantity> extends EachEntryPR<T> {
 	@Override
 	protected void processEntry(Entry e) {
 		AccountingTransaction tx=new AccountingTransaction(new Date());

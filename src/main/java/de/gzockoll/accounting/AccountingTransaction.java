@@ -7,9 +7,9 @@ import java.util.HashSet;
 import de.gzockoll.quantity.Quantity;
 import de.gzockoll.types.money.Money;
 
-public class AccountingTransaction implements Subject {
+public class AccountingTransaction<T extends Quantity> implements Subject {
 	private Date date;
-	private Collection<Entry> entries = new HashSet<Entry>();
+	private Collection<Entry<T>> entries = new HashSet<Entry<T>>();
 	private boolean posted = false;
 
 	public AccountingTransaction(Date date) {
@@ -17,9 +17,9 @@ public class AccountingTransaction implements Subject {
 		this.date = date;
 	}
 
-	public void add(Quantity amount, Account account, String text) {
+	public void add(T amount, Account<T> account, String text) {
 		assertNotPosted();
-		entries.add(new Entry(account, amount, text));
+		entries.add(new Entry<T>(account, amount, text));
 	}
 
 	private void assertCanPost() {
@@ -31,10 +31,13 @@ public class AccountingTransaction implements Subject {
 		return balance().isZero();
 	}
 
-	public Quantity balance() {
-		Quantity result = Quantity.ZERO;
-		for (Entry e : entries) {
-			result = result.add(e.getQuantity());
+	public T balance() {
+		T result=null;
+		for (Entry<T> e : entries) {
+			if (result==null)
+				result=e.getQuantity();
+			else
+				result = (T) result.add(e.getQuantity());
 		}
 		return result;
 	}
@@ -55,10 +58,10 @@ public class AccountingTransaction implements Subject {
 		posted = true;
 	}
 
-	public AccountingTransaction inverse(Date d) {
-		AccountingTransaction trans = new AccountingTransaction(d);
-		for (Entry e : entries) {
-			trans.add(e.getQuantity().negate(), e.getAccount(), "Storno: "
+	public AccountingTransaction<T> inverse(Date d) {
+		AccountingTransaction<T> trans = new AccountingTransaction<T>(d);
+		for (Entry<T> e : entries) {
+			trans.add((T) e.getQuantity().negate(), e.getAccount(), "Storno: "
 					+ e.getText());
 		}
 		return trans;

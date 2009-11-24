@@ -2,15 +2,16 @@ package de.gzockoll.accounting;
 
 import java.util.Date;
 
+import de.gzockoll.quantity.Quantity;
 import de.gzockoll.types.money.CurrencyUnit;
 import de.gzockoll.types.money.Money;
 
-public class BillingPR extends EachEntryPR {
+public class BillingPR<T extends Quantity> extends EachEntryPR<T> {
 
 	private static final double RATE = 0.19;
 
 	@Override
-	protected void processEntry(Entry e) {
+	protected void processEntry(Entry<T> e) {
 		AccountingTransaction tx = new AccountingTransaction(new Date());
 		Money money=transform(e);
 		
@@ -21,7 +22,8 @@ public class BillingPR extends EachEntryPR {
 
 	private Money transform(Entry e) {
 		assertThatUnitIsOk(e);
-		return new Money((e.getQuantity().getAmount()*RATE), CurrencyUnit.EURO);
+		double calculatedAmount = e.getQuantity().getAmount()*RATE;
+		return new Money(calculatedAmount, CurrencyUnit.EURO);
 	}
 
 	private void assertThatUnitIsOk(Entry e) {

@@ -4,19 +4,19 @@ import java.util.Date;
 
 import de.gzockoll.quantity.Quantity;
 
-public class Entry {
+public class Entry<T extends Quantity> {
 	private Date whenCharged;
 	private Date whenBooked;
 
-	private Quantity quantity;
+	private T quantity;
 	private String text;
-	private Account account;
+	private Account<T> account;
 
 	void setWhenCharged(Date whenCharged) {
 		this.whenCharged = whenCharged;
 	}
 
-	public Entry(Account a,Quantity quantity, String text) {
+	public Entry(Account<T> a,T quantity, String text) {
 		super();
 		this.account=a;
 		this.whenCharged = new Date();
@@ -32,7 +32,7 @@ public class Entry {
 		return whenBooked;
 	}
 
-	public Quantity getQuantity() {
+	public T getQuantity() {
 		return quantity;
 	}
 
@@ -40,7 +40,7 @@ public class Entry {
 		return text;
 	}
 
-	public Entry post() {
+	public Entry<T> post() {
 		if (whenBooked != null)
 			throw new IllegalStateException("Already booked!");
 		whenBooked = new Date();
@@ -48,7 +48,7 @@ public class Entry {
 		return this;
 	}
 
-	public Account getAccount() {
+	public Account<T> getAccount() {
 		return account;
 	}
 	

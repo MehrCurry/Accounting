@@ -1,8 +1,8 @@
 package de.gzockoll.accounting;
 
 import java.util.Collection;
-import java.util.Collections;
 
+import java.util.Collections;
 import de.gzockoll.quantity.Quantity;
 import de.gzockoll.quantity.Unit;
 
@@ -21,7 +21,7 @@ public class NullAccount implements Account {
 	}
 
 	public Quantity saldo() {
-		return Quantity.ZERO;
+		return null; //new NullQuantitiy();
 	}
 
 	public Unit getUnit() {
@@ -32,8 +32,11 @@ public class NullAccount implements Account {
 		
 	}
 
-	public String getName() {
-		
+	public String getName() {	
 		return "<Null Account>";
+	}
+
+	public Class typeClass() {
+		return Object.class;
 	}
 }

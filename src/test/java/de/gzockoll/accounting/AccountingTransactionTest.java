@@ -1,14 +1,16 @@
 package de.gzockoll.accounting;
 
 
+import static org.hamcrest.core.Is.*;
+import static org.junit.Assert.*;
+
 import java.util.Date;
 
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import static org.hamcrest.core.Is.*;
 
 import de.gzockoll.quantity.Quantity;
+import de.gzockoll.quantity.SimpleQuantity;
 
 public class AccountingTransactionTest {
 
@@ -22,13 +24,13 @@ public class AccountingTransactionTest {
 		kwh2=AccountingPlan.createDetailAccount("kwh", Units.KWH);
 		kwh3=AccountingPlan.createDetailAccount("kwh", Units.KWH);
 
-		tenKwh = new Quantity(10, Units.KWH);
-		fiveKwh = new Quantity(5, Units.KWH);
+		tenKwh = new SimpleQuantity(10, Units.KWH);
+		fiveKwh = new SimpleQuantity(5, Units.KWH);
 	}
 	
 	@Test
 	public void testCanPost2Way() {
-	AccountingTransaction tx=new AccountingTransaction(new Date());		
+	AccountingTransaction<Quantity> tx=new AccountingTransaction<Quantity>(new Date());		
 		tx.add(tenKwh, kwh1, "Test");
 		assertThat(tx.canPost(),is(false));
 		
@@ -36,6 +38,7 @@ public class AccountingTransactionTest {
 		assertThat(tx.canPost(),is(true));
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Test
 	public void testCanPost3Way() {
 	AccountingTransaction tx=new AccountingTransaction(new Date());

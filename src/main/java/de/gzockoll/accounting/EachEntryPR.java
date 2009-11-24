@@ -1,12 +1,14 @@
 package de.gzockoll.accounting;
 
-public abstract class EachEntryPR implements PostingRule {
+import de.gzockoll.quantity.Quantity;
 
-	public void processAccount(Account account) {
-		for (Entry e:account.getEntries()) {
-			processEntry(e);
+public abstract class EachEntryPR<T extends Quantity> implements PostingRule<T> {
+
+	public void processAccount(Account<T> account) {
+		for (Entry<T>  e:account.getEntries()) {
+			processEntry((Entry<T>) e);
 		}
 	}
 
-	protected abstract void processEntry(Entry e);
+	protected abstract void processEntry(Entry<T> e);
 }

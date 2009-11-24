@@ -1,12 +1,16 @@
 package de.gzockoll.accounting;
 
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.core.Is.*;
+import static org.hamcrest.core.IsInstanceOf.*;
+import static org.junit.Assert.*;
 
+import org.hamcrest.core.IsInstanceOf;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.gzockoll.quantity.NullQuantity;
 import de.gzockoll.quantity.Quantity;
+import de.gzockoll.quantity.SimpleQuantity;
 
 public class AccountTest {
 
@@ -20,24 +24,30 @@ public class AccountTest {
 
 	@Test
 	public void testBook() {
-		new Entry(account, new Quantity(10,Units.KWH),"JUnit").post();
+		new Entry(account, new SimpleQuantity(10,Units.KWH),"JUnit").post();
 		assertThat(account.entryCount(),is(1));
-		new Entry(account, new Quantity(10,Units.KWH),"JUnit").post();
+		new Entry(account, new SimpleQuantity(10,Units.KWH),"JUnit").post();
 		assertThat(account.entryCount(),is(2));
 	}
 
 	@Test(expected=IllegalArgumentException.class)
 	public void testBookWrongUnit() {
-		new Entry(account, new Quantity(10,Units.KG),"JUnit").post();
+		new Entry(account, new SimpleQuantity(10,Units.KG),"JUnit").post();
 	}
 
 	@Test
 	public void testSaldo() {
-		new Entry(account, new Quantity(10,Units.KWH),"JUnit").post();
-		assertThat(account.saldo(),is(new Quantity(10, Units.KWH)));
-		new Entry(account, new Quantity(10,Units.KWH),"JUnit").post();
-		assertThat(account.saldo(),is(new Quantity(20, Units.KWH)));
-		new Entry(account, new Quantity(100,Units.KWH),"JUnit").post();
-		assertThat(account.saldo(),is(new Quantity(120, Units.KWH)));
+		new Entry(account, new SimpleQuantity(10,Units.KWH),"JUnit").post();
+		assertThat(account.saldo(),is((Quantity)new SimpleQuantity(10, Units.KWH)));
+		new Entry(account, new SimpleQuantity(10,Units.KWH),"JUnit").post();
+		assertThat(account.saldo(),is((Quantity)new SimpleQuantity(20, Units.KWH)));
+		new Entry(account, new SimpleQuantity(100,Units.KWH),"JUnit").post();
+		assertThat(account.saldo(),is((Quantity)new SimpleQuantity(120, Units.KWH)));
+	}
+	
+	@Test
+	public void testSaldoWithEmptyAccount() {
+		Account<SimpleQuantity> account=new DetailAccount<SimpleQuantity>("JUnit", Units.KWH);
+		assertThat(account.saldo(),instanceOf(NullQuantity.class));
 	}
 }

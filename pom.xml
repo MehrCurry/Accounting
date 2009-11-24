@@ -5,6 +5,19 @@
   <name>Accounting Patterns</name>
   <version>0.0.1-SNAPSHOT</version>
   <description>nach Martin Fowler</description>
+  <parent>
+	  <groupId>de.gzockoll</groupId>
+	  <artifactId>pom-master</artifactId>
+	  <version>1</version>
+  </parent>
+  <ciManagement>
+  	<system>hudosn</system>
+  	<url>http://build:8080/accounting</url>
+  </ciManagement>
+  <scm>
+  	<connection>scm:git:git@250101.vserver.de:/var/spool/git/accounting</connection>
+  	<developerConnection>scm:git:git@250101.vserver.de:/var/spool/git/accounting</developerConnection>
+  </scm>
   	<build>
 		<plugins>
 			<plugin>
