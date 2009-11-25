@@ -61,9 +61,6 @@ public class SummaryAccount<T extends Quantity> implements Account<T> {
 	public Quantity saldo() {
 		T result = (T) new NullQuantity();
 		for (Account<T> a:accounts)
-			if (result==null)
-				result=(T) a.saldo();
-			else
 				result=(T) result.add(a.saldo());
 		return result;
 	}

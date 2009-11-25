@@ -1,8 +1,8 @@
 package de.gzockoll.accounting;
 
-import java.util.Date;
-
+import de.gzockoll.common.types.Timepoint;
 import de.gzockoll.quantity.Quantity;
+import de.gzockoll.quantity.Units;
 import de.gzockoll.types.money.CurrencyUnit;
 import de.gzockoll.types.money.Money;
 
@@ -12,7 +12,7 @@ public class BillingPR<T extends Quantity> extends EachEntryPR<T> {
 
 	@Override
 	protected void processEntry(Entry<T> e) {
-		AccountingTransaction tx = new AccountingTransaction(new Date());
+		AccountingTransaction tx = new AccountingTransaction(Timepoint.now());
 		Money money=transform(e);
 		
 		tx.add(money.negate(), AccountingPlan.getAccount("Herr Meier"), e.getText());

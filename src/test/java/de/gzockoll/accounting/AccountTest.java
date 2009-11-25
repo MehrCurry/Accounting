@@ -4,13 +4,13 @@ import static org.hamcrest.core.Is.*;
 import static org.hamcrest.core.IsInstanceOf.*;
 import static org.junit.Assert.*;
 
-import org.hamcrest.core.IsInstanceOf;
 import org.junit.Before;
 import org.junit.Test;
 
 import de.gzockoll.quantity.NullQuantity;
 import de.gzockoll.quantity.Quantity;
 import de.gzockoll.quantity.SimpleQuantity;
+import de.gzockoll.quantity.Units;
 
 public class AccountTest {
 

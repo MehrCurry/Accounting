@@ -11,7 +11,9 @@ import de.gzockoll.common.types.TimeFactory;
 import de.gzockoll.quantity.Quantity;
 import de.gzockoll.quantity.SimpleQuantity;
 import de.gzockoll.quantity.Unit;
+import de.gzockoll.quantity.Units;
 
+@SuppressWarnings({ "unchecked", "rawtypes" })
 public class EveningDaySplitPRTest {
 	private DetailAccount main;
 	private DetailAccount day;
@@ -25,13 +27,13 @@ public class EveningDaySplitPRTest {
 		day=AccountingPlan.createDetailAccount("#day", unit);
 		night=AccountingPlan.createDetailAccount("#night", unit);
 		
-		Entry e=new Entry(main, new SimpleQuantity(10, Units.KWH) , "Test").post();
+		Entry e=new Entry(main, Units.KWH.amount(10) , "Test").post();
 		e.setWhenCharged(TimeFactory.parseDateTime("21.4.2009 10:00"));
-		e=new Entry(main, new SimpleQuantity(20, Units.KWH) , "Test").post();
+		e=new Entry(main, Units.KWH.amount(20) , "Test").post();
 		e.setWhenCharged(TimeFactory.parseDateTime("21.4.2009 17:00"));
-		e=new Entry(main, new SimpleQuantity(15, Units.KWH) , "Test").post();
+		e=new Entry(main, Units.KWH.amount(15) , "Test").post();
 		e.setWhenCharged(TimeFactory.parseDateTime("21.4.2009 18:00"));
-		e=new Entry(main, new SimpleQuantity(18, Units.KWH) , "Test").post();
+		e=new Entry(main, Units.KWH.amount(18) , "Test").post();
 		e.setWhenCharged(TimeFactory.parseDateTime("21.4.2009 21:00"));
 	}
 

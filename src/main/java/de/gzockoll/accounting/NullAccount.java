@@ -1,8 +1,8 @@
 package de.gzockoll.accounting;
 
 import java.util.Collection;
-
 import java.util.Collections;
+
 import de.gzockoll.quantity.Quantity;
 import de.gzockoll.quantity.Unit;
 

@@ -10,7 +10,9 @@ import org.junit.Test;
 import de.gzockoll.quantity.Quantity;
 import de.gzockoll.quantity.SimpleQuantity;
 import de.gzockoll.quantity.Unit;
+import de.gzockoll.quantity.Units;
 
+@SuppressWarnings({ "unchecked", "rawtypes" })
 public class SumaryAccountTest {
 
 	private SummaryAccount main;
@@ -43,14 +45,14 @@ public class SumaryAccountTest {
 	
 	@Test
 	public void testSaldo() {
-		Quantity tenKwh = new SimpleQuantity(10, Units.KWH);
+		Quantity tenKwh = Units.KWH.amount(10);
 		new Entry(day, tenKwh, "Test").post();
 		assertThat(main.saldo(),is(tenKwh));
 		assertThat(day.saldo(),is(tenKwh));
 		assertThat(night.saldo().isZero(),is(true));
 		
 		new Entry(night, tenKwh, "Test").post();
-		assertThat(main.saldo(),is((Quantity)new SimpleQuantity(20, Units.KWH)));
+		assertThat(main.saldo(),is(Units.KWH.amount(20)));
 		assertThat(day.saldo(),is(tenKwh));
 		assertThat(night.saldo(),is(tenKwh));
 	}

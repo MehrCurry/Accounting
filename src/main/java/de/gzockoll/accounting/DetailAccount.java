@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
-import de.gzockoll.quantity.Quantity;
 import de.gzockoll.quantity.NullQuantity;
+import de.gzockoll.quantity.Quantity;
 import de.gzockoll.quantity.Unit;
 
 public class DetailAccount<T extends Quantity> implements Account<T> {
 	private String name;
 
-	DetailAccount(String name, Unit unit) {
+	public DetailAccount(String name, Unit unit) {
 		super();
 		this.name = name;
 		this.unit = unit;

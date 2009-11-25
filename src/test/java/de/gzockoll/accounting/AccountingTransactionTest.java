@@ -4,13 +4,12 @@ package de.gzockoll.accounting;
 import static org.hamcrest.core.Is.*;
 import static org.junit.Assert.*;
 
-import java.util.Date;
-
 import org.junit.Before;
 import org.junit.Test;
 
+import de.gzockoll.common.types.Timepoint;
 import de.gzockoll.quantity.Quantity;
-import de.gzockoll.quantity.SimpleQuantity;
+import de.gzockoll.quantity.Units;
 
 public class AccountingTransactionTest {
 
@@ -24,13 +23,13 @@ public class AccountingTransactionTest {
 		kwh2=AccountingPlan.createDetailAccount("kwh", Units.KWH);
 		kwh3=AccountingPlan.createDetailAccount("kwh", Units.KWH);
 
-		tenKwh = new SimpleQuantity(10, Units.KWH);
-		fiveKwh = new SimpleQuantity(5, Units.KWH);
+		tenKwh = Units.KWH.amount(10);
+		fiveKwh = Units.KWH.amount(5);
 	}
 	
 	@Test
 	public void testCanPost2Way() {
-	AccountingTransaction<Quantity> tx=new AccountingTransaction<Quantity>(new Date());		
+	AccountingTransaction<Quantity> tx=new AccountingTransaction<Quantity>(Timepoint.now());		
 		tx.add(tenKwh, kwh1, "Test");
 		assertThat(tx.canPost(),is(false));
 		
@@ -41,7 +40,7 @@ public class AccountingTransactionTest {
 	@SuppressWarnings("rawtypes")
 	@Test
 	public void testCanPost3Way() {
-	AccountingTransaction tx=new AccountingTransaction(new Date());
+	AccountingTransaction tx=new AccountingTransaction(Timepoint.now());
 		
 		tx.add(tenKwh, kwh1, "Test");
 		assertThat(tx.canPost(),is(false));
@@ -54,7 +53,7 @@ public class AccountingTransactionTest {
 	}
 	@Test
 	public void testPost2Way() {
-	AccountingTransaction tx=new AccountingTransaction(new Date());
+	AccountingTransaction tx=new AccountingTransaction(Timepoint.now());
 		
 		tx.add(tenKwh, kwh1, "Test");
 		
@@ -68,7 +67,7 @@ public class AccountingTransactionTest {
 
 	@Test
 	public void testPost3Way() {
-	AccountingTransaction tx=new AccountingTransaction(new Date());
+	AccountingTransaction tx=new AccountingTransaction(Timepoint.now());
 		
 		tx.add(tenKwh, kwh1, "Test");
 		
@@ -86,7 +85,7 @@ public class AccountingTransactionTest {
 	
 	@Test(expected=UnableToPostException.class)
 	public void testCanNotPost() {
-		AccountingTransaction tx=new AccountingTransaction(new Date());
+		AccountingTransaction tx=new AccountingTransaction(Timepoint.now());
 		tx.add(tenKwh, kwh1, "Test");
 		tx.post();
 	}
