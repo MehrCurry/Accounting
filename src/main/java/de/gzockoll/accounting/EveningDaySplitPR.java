@@ -12,7 +12,7 @@ public class EveningDaySplitPR<T extends Quantity> extends EachEntryPR<T> {
 		tx.post();
 	}
 
-	private Account getAccountFor(Entry e) {
+	private Account<T> getAccountFor(Entry<T> e) {
 		int hours = e.getWhenCharged().getHours();
 		System.out.println(e.getWhenCharged());
 		System.out.println(hours);

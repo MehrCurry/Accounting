@@ -97,8 +97,8 @@ public class DetailAccount<T extends Quantity> implements Account<T> {
 		return s.toString();
 	}
 
-	public Class typeClass() {
-		return ReflectionUtil.getTypeArguments(DetailAccount.class, getClass())
-				.get(0);
-	}
+//	public Class typeClass() {
+//		return ReflectionUtil.getTypeArguments(DetailAccount.class, getClass())
+//				.get(0);
+//	}
 }

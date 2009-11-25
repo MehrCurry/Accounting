@@ -3,12 +3,15 @@ package de.gzockoll.accounting;
 import java.util.Collection;
 import java.util.Collections;
 
+import de.gzockoll.quantity.NullQuantity;
 import de.gzockoll.quantity.Quantity;
 import de.gzockoll.quantity.Unit;
 
+@SuppressWarnings("rawtypes")
 public class NullAccount implements Account {
 
 	public void add(Entry entry) {
+		throw new UnsupportedOperationException("Cannot add to a null account");
 	}
 
 	public int entryCount() {
@@ -21,22 +24,15 @@ public class NullAccount implements Account {
 	}
 
 	public Quantity saldo() {
-		return null; //new NullQuantitiy();
+		return new NullQuantity();
 	}
 
 	public Unit getUnit() {
-		return new None();
+		return new Unit() {};
 	}
 	
-	private static class None implements Unit {
-		
-	}
-
 	public String getName() {	
 		return "<Null Account>";
 	}
 
-	public Class typeClass() {
-		return Object.class;
-	}
 }

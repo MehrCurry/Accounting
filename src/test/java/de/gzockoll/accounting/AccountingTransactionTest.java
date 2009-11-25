@@ -11,6 +11,7 @@ import de.gzockoll.common.types.Timepoint;
 import de.gzockoll.quantity.Quantity;
 import de.gzockoll.quantity.Units;
 
+@SuppressWarnings({ "rawtypes", "unchecked" })
 public class AccountingTransactionTest {
 
 	private DetailAccount kwh1,kwh2,kwh3;
@@ -87,6 +88,15 @@ public class AccountingTransactionTest {
 	public void testCanNotPost() {
 		AccountingTransaction tx=new AccountingTransaction(Timepoint.now());
 		tx.add(tenKwh, kwh1, "Test");
+		tx.post();
+	}
+	
+	@Test(expected=ImmutableTransactionException.class)
+	public void testUnmutableTransactionException() {
+		AccountingTransaction tx=new AccountingTransaction(Timepoint.now());
+		tx.add(tenKwh, kwh1, "Test");
+		tx.add(tenKwh.negate(), kwh2, "Test");
+		tx.post();
 		tx.post();
 	}
 
