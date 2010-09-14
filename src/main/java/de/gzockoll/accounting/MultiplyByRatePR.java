@@ -10,8 +10,7 @@ public class MultiplyByRatePR extends AbstractPostingRule {
 
 	@Override
 	public void processAccount(Account account) {
-		// TODO Auto-generated method stub
-
+		throw new UnsupportedOperationException();
 	}
 
 	@Override

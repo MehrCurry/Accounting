@@ -25,6 +25,7 @@ public class EveningDaySplitPR<T extends Quantity> extends EachEntryPR<T> {
 
 	@Override
 	public void process(AccountingEvent e) {
-		throw new UnsupportedOperationException("Not yet implemented");		
+		throw new UnsupportedOperationException();
+		
 	}
 }
