@@ -35,7 +35,7 @@ public class NullAccountTest {
 	
 	@Test
 	public void testGetSaldo() {
-		Quantity saldo = account.saldo();
+		Quantity saldo = account.balance();
 		assertThat(saldo,is(not(nullValue())));
 	}
 	

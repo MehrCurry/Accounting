@@ -3,6 +3,7 @@ package de.gzockoll.accounting;
 import java.util.Date;
 
 import de.gzockoll.quantity.Quantity;
+import de.gzockoll.types.money.Money;
 
 public class Entry<T extends Quantity> {
 	private Date whenCharged;
@@ -22,6 +23,11 @@ public class Entry<T extends Quantity> {
 		this.whenCharged = new Date();
 		this.quantity = quantity;
 		this.text = text;
+	}
+
+	public Entry(T quantity, Date whenNoticed) {
+		this.quantity=quantity;
+		this.whenBooked=whenNoticed;
 	}
 
 	public Date getWhenCharged() {

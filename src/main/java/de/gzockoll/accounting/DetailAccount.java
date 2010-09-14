@@ -1,20 +1,35 @@
 package de.gzockoll.accounting;
 
+import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 
 import de.gzockoll.quantity.NullQuantity;
 import de.gzockoll.quantity.Quantity;
+import de.gzockoll.quantity.SimpleQuantity;
 import de.gzockoll.quantity.Unit;
+import de.gzockoll.types.money.CurrencyUnit;
+import de.gzockoll.types.money.Money;
 
 public class DetailAccount<T extends Quantity> implements Account<T> {
 	private String name;
+	private AccountType type;
 
 	public DetailAccount(String name, Unit unit) {
 		super();
 		this.name = name;
 		this.unit = unit;
+	}
+
+	public DetailAccount(Unit unit, AccountType type) {
+		super();
+		this.name = type.name();
+		this.unit = unit;
+		this.type = type;
 	}
 
 	public String getName() {
@@ -52,8 +67,8 @@ public class DetailAccount<T extends Quantity> implements Account<T> {
 	 * 
 	 * @see de.gzockoll.accounting.Account#saldo()
 	 */
-	public Quantity saldo() {
-		T result = (T) new NullQuantity();
+	public Quantity balance() {
+		T result = getZeroBalance();
 		for (Entry<T> e : entries) {
 			if (result == null)
 				result = e.getQuantity();
@@ -61,6 +76,10 @@ public class DetailAccount<T extends Quantity> implements Account<T> {
 				result = (T) result.add(e.getQuantity());
 		}
 		return result;
+	}
+
+	public T getZeroBalance() {
+		return (T) unit.getZeroQuantity();
 	}
 
 	/*
@@ -90,15 +109,23 @@ public class DetailAccount<T extends Quantity> implements Account<T> {
 	@Override
 	public String toString() {
 		StringBuffer s = new StringBuffer();
-		s.append("Account " + name + ": " + saldo() + "\n");
+		s.append("Account " + name + ": " + balance() + "\n");
 		for (Entry e : entries) {
 			s.append("  " + e + "\n");
 		}
 		return s.toString();
 	}
 
+	@Override
+	public void post(Entry<T> entry) {
+		add(entry);
+		
+	}
+
 //	public Class typeClass() {
 //		return ReflectionUtil.getTypeArguments(DetailAccount.class, getClass())
 //				.get(0);
 //	}
+	
+	
 }

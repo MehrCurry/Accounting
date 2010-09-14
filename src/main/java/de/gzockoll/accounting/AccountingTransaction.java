@@ -69,4 +69,14 @@ public class AccountingTransaction<T extends Quantity> implements Subject {
 	public String toString() {
 		return "AccountingTransaction: posted=" + posted + ", Balance=" + balance() + ", Entries=" + entries.size();
 	}
+
+	@Override
+	public void addEntry(Entry newEntry, AccountType type) {
+		throw new UnsupportedOperationException("Not yet implemented");		
+	}
+
+	@Override
+	public void process(AccountingEvent accountingEvent) {
+		throw new UnsupportedOperationException("Not yet implemented");		
+	}
 }

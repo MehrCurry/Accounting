@@ -38,16 +38,16 @@ public class AccountTest {
 	@Test
 	public void testSaldo() {
 		new Entry(account, new SimpleQuantity(10,Units.KWH),"JUnit").post();
-		assertThat(account.saldo(),is((Quantity)new SimpleQuantity(10, Units.KWH)));
+		assertThat(account.balance(),is((Quantity)new SimpleQuantity(10, Units.KWH)));
 		new Entry(account, new SimpleQuantity(10,Units.KWH),"JUnit").post();
-		assertThat(account.saldo(),is((Quantity)new SimpleQuantity(20, Units.KWH)));
+		assertThat(account.balance(),is((Quantity)new SimpleQuantity(20, Units.KWH)));
 		new Entry(account, new SimpleQuantity(100,Units.KWH),"JUnit").post();
-		assertThat(account.saldo(),is((Quantity)new SimpleQuantity(120, Units.KWH)));
+		assertThat(account.balance(),is((Quantity)new SimpleQuantity(120, Units.KWH)));
 	}
 	
 	@Test
 	public void testSaldoWithEmptyAccount() {
 		Account<SimpleQuantity> account=new DetailAccount<SimpleQuantity>("JUnit", Units.KWH);
-		assertThat(account.saldo(),instanceOf(NullQuantity.class));
+		assertThat(account.balance(),instanceOf(NullQuantity.class));
 	}
 }

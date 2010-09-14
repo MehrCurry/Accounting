@@ -12,9 +12,11 @@ public interface Account<T extends Quantity> {
 
 	public abstract Collection<Entry<T>> getEntries();
 
-	public abstract Quantity saldo();
+	public abstract Quantity balance();
 
 	public abstract int entryCount();
 
 	public abstract void add(Entry<T> entry);
+
+	public void post(Entry<T> entry);
 }

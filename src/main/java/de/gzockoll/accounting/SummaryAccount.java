@@ -58,10 +58,16 @@ public class SummaryAccount<T extends Quantity> implements Account<T> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Quantity saldo() {
+	public Quantity balance() {
 		T result = (T) new NullQuantity();
 		for (Account<T> a:accounts)
-				result=(T) result.add(a.saldo());
+				result=(T) result.add(a.balance());
 		return result;
+	}
+
+
+	@Override
+	public void post(Entry<T> entry) {
+		throw new UnsupportedOperationException("Write operations on summary accounts are unsupported!");		
 	}
 }

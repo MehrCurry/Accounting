@@ -47,10 +47,10 @@ public class EveningDaySplitPRTest {
 		
 		
 		assertThat(day.entryCount(),is(3));
-		assertThat(day.saldo(),is((Quantity)new SimpleQuantity(45, Units.KWH)));
+		assertThat(day.balance(),is((Quantity)new SimpleQuantity(45, Units.KWH)));
 		assertThat(night.entryCount(),is(1));
-		assertThat(night.saldo(),is((Quantity)new SimpleQuantity(18, Units.KWH)));
+		assertThat(night.balance(),is((Quantity)new SimpleQuantity(18, Units.KWH)));
 		assertThat(main.entryCount(),is(8));
-		assertThat(main.saldo(),is((Quantity)new SimpleQuantity(0, Units.KWH)));
+		assertThat(main.balance(),is((Quantity)new SimpleQuantity(0, Units.KWH)));
 	}
 }

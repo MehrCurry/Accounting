@@ -61,9 +61,9 @@ public class AccountingTransactionTest {
 		tx.add(tenKwh.negate(), kwh2, "Test");
 		tx.post();
 		assertThat(kwh1.entryCount(),is(1));
-		assertThat(kwh1.saldo(),is(tenKwh));
+		assertThat(kwh1.balance(),is(tenKwh));
 		assertThat(kwh2.entryCount(),is(1));
-		assertThat(kwh2.saldo(),is(tenKwh.negate()));
+		assertThat(kwh2.balance(),is(tenKwh.negate()));
 	}
 
 	@Test
@@ -77,11 +77,11 @@ public class AccountingTransactionTest {
 		tx.add(fiveKwh.negate(), kwh3, "Test");
 		tx.post();
 		assertThat(kwh1.entryCount(),is(1));
-		assertThat(kwh1.saldo(),is(tenKwh));
+		assertThat(kwh1.balance(),is(tenKwh));
 		assertThat(kwh2.entryCount(),is(1));
-		assertThat(kwh3.saldo(),is(fiveKwh.negate()));
+		assertThat(kwh3.balance(),is(fiveKwh.negate()));
 		assertThat(kwh3.entryCount(),is(1));
-		assertThat(kwh3.saldo(),is(fiveKwh.negate()));
+		assertThat(kwh3.balance(),is(fiveKwh.negate()));
 	}
 	
 	@Test(expected=UnableToPostException.class)

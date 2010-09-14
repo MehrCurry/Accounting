@@ -23,4 +23,8 @@ public class EveningDaySplitPR<T extends Quantity> extends EachEntryPR<T> {
 			return AccountingPlan.getAccount("#day");
 	}
 
+	@Override
+	public void process(AccountingEvent e) {
+		throw new UnsupportedOperationException("Not yet implemented");		
+	}
 }

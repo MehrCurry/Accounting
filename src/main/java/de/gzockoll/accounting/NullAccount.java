@@ -23,16 +23,22 @@ public class NullAccount implements Account {
 		return Collections.EMPTY_LIST;
 	}
 
-	public Quantity saldo() {
+	public Quantity balance() {
 		return new NullQuantity();
 	}
 
 	public Unit getUnit() {
-		return new Unit() {};
+		throw new UnsupportedOperationException(getClass().getName() + "does not understand method post()");
 	}
 	
 	public String getName() {	
 		return "<Null Account>";
+	}
+
+	@Override
+	public void post(Entry entry) {
+		throw new UnsupportedOperationException(getClass().getName() + "does not understand method post()");
+		
 	}
 
 }
