@@ -32,7 +32,6 @@ public class EventList {
 	private Collection<AccountingEvent> unprocessedEvents() {
 		return CollectionUtils.select(events, new Predicate() {
 			
-			@Override
 			public boolean evaluate(Object arg0) {
 				AccountingEvent event=(AccountingEvent) arg0;
 				return !event.isProcessed();

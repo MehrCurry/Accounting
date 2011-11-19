@@ -1,48 +1,49 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>de.gzockoll</groupId>
-  <artifactId>accounting</artifactId>
-  <name>Accounting Patterns</name>
-  <version>0.0.1-SNAPSHOT</version>
-  <description>nach Martin Fowler</description>
-  <parent>
-	  <groupId>de.gzockoll</groupId>
-	  <artifactId>pom-master</artifactId>
-	  <version>1</version>
-  </parent>
-  <ciManagement>
-  	<system>hudosn</system>
-  	<url>http://build:8080/accounting</url>
-  </ciManagement>
-  <scm>
-  	<connection>scm:git:git@250101.vserver.de:/var/spool/git/accounting</connection>
-  	<developerConnection>scm:git:guido@250101.vserver.de:/var/spool/git/accounting</developerConnection>
-  </scm>
-   	<dependencies>
-  		<dependency>
-  			<groupId>de.gzockoll</groupId>
-  			<artifactId>quantity</artifactId>
-  			<version>0.0.1-SNAPSHOT</version>
-  		</dependency>
-  		<dependency>
-  			<groupId>de.gzockoll</groupId>
-  			<artifactId>money</artifactId>
-  			<version>0.0.1-SNAPSHOT</version>
-  		</dependency>
-  		<dependency>
-  			<groupId>de.gzockoll</groupId>
-  			<artifactId>commontypes</artifactId>
-  			<version>0.0.1-SNAPSHOT</version>
-  		</dependency>
-  		<dependency>
-  			<groupId>joda-time</groupId>
-  			<artifactId>joda-time</artifactId>
-  			<version>1.6</version>
-  		</dependency>
-  		<dependency>
-  			<groupId>commons-collections</groupId>
-  			<artifactId>commons-collections</artifactId>
-  			<version>3.2.1</version>
-  		</dependency>
-   	</dependencies> 
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>de.gzockoll</groupId>
+	<artifactId>accounting</artifactId>
+	<name>Accounting Patterns</name>
+	<description>nach Martin Fowler</description>
+	<ciManagement>
+		<system>hudosn</system>
+		<url>http://build:8080/accounting</url>
+	</ciManagement>
+	<scm>
+		<connection>scm:git:git@github.com:MehrCurry/Accounting.git</connection>
+		<developerConnection>scm:git:git@github.com:MehrCurry/Accounting.git</developerConnection>
+	</scm>
+	<dependencies>
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>1.6</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>3.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.joda</groupId>
+			<artifactId>joda-money</artifactId>
+			<version>0.6</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.10</version>
+			<scope>test</scope>
+		</dependency>
+<dependency>
+    <groupId>de.gzockoll</groupId>
+    <artifactId>commontypes</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+</dependency>
+	</dependencies>
+	<parent>
+		<groupId>de.gzockoll.osgi</groupId>
+		<artifactId>OsgiParent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
 </project>

@@ -2,21 +2,21 @@ package de.gzockoll.accounting;
 
 import java.util.Collection;
 
-import de.gzockoll.quantity.Quantity;
-import de.gzockoll.quantity.Unit;
+import org.joda.money.CurrencyUnit;
+import org.joda.money.Money;
 
-public interface Account<T extends Quantity> {
+public interface Account {
 	public String getName();
 	
-	public abstract Unit getUnit();
+	public abstract CurrencyUnit getUnit();
 
-	public abstract Collection<Entry<T>> getEntries();
+	public abstract Collection<Entry> getEntries();
 
-	public abstract Quantity balance();
+	public abstract Money balance();
 
 	public abstract int entryCount();
 
-	public abstract void add(Entry<T> entry);
+	public abstract void add(Entry entry);
 
-	public void post(Entry<T> entry);
+	public void post(Entry entry);
 }

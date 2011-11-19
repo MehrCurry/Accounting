@@ -1,18 +1,18 @@
 package de.gzockoll.accounting;
 
-import de.gzockoll.common.types.Timepoint;
-import de.gzockoll.quantity.Quantity;
+import org.joda.time.DateTime;
 
-public class EveningDaySplitPR<T extends Quantity> extends EachEntryPR<T> {
+
+public class EveningDaySplitPR extends EachEntryPR {
 	@Override
 	protected void processEntry(Entry e) {
-		AccountingTransaction tx=new AccountingTransaction(Timepoint.now());
-		tx.add(e.getQuantity().negate(), e.getAccount(), "Day/Night split");
+		AccountingTransaction tx=new AccountingTransaction(new DateTime());
+		tx.add(e.getQuantity().negated(), e.getAccount(), "Day/Night split");
 		tx.add(e.getQuantity(), getAccountFor(e), e.getText());
 		tx.post();
 	}
 
-	private Account<T> getAccountFor(Entry<T> e) {
+	private Account getAccountFor(Entry e) {
 		int hours = e.getWhenCharged().getHours();
 		System.out.println(e.getWhenCharged());
 		System.out.println(hours);
@@ -23,7 +23,6 @@ public class EveningDaySplitPR<T extends Quantity> extends EachEntryPR<T> {
 			return AccountingPlan.getAccount("#day");
 	}
 
-	@Override
 	public void process(AccountingEvent e) {
 		throw new UnsupportedOperationException();
 		

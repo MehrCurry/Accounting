@@ -1,6 +1,6 @@
 package de.gzockoll.accounting;
 
-import de.gzockoll.types.money.Money;
+import org.joda.money.Money;
 
 public abstract class AbstractPostingRule implements PostingRule {
     private boolean isTaxable;

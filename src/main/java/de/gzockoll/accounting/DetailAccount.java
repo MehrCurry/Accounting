@@ -1,31 +1,24 @@
 package de.gzockoll.accounting;
 
-import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Date;
 
-import de.gzockoll.quantity.NullQuantity;
-import de.gzockoll.quantity.Quantity;
-import de.gzockoll.quantity.SimpleQuantity;
-import de.gzockoll.quantity.Unit;
-import de.gzockoll.types.money.CurrencyUnit;
-import de.gzockoll.types.money.Money;
+import org.joda.money.CurrencyUnit;
+import org.joda.money.Money;
+import org.osgi.util.measurement.Unit;
 
-public class DetailAccount<T extends Quantity> implements Account<T> {
+public class DetailAccount implements Account {
 	private String name;
 	private AccountType type;
 
-	public DetailAccount(String name, Unit unit) {
+	public DetailAccount(String name, CurrencyUnit unit) {
 		super();
 		this.name = name;
 		this.unit = unit;
 	}
 
-	public DetailAccount(Unit unit, AccountType type) {
+	public DetailAccount(CurrencyUnit unit, AccountType type) {
 		super();
 		this.name = type.name();
 		this.unit = unit;
@@ -42,22 +35,22 @@ public class DetailAccount<T extends Quantity> implements Account<T> {
 	 * @see de.gzockoll.accounting.Account#getEntries()
 	 */
 	@SuppressWarnings("unchecked")
-	public Collection<Entry<T>> getEntries() {
-		ArrayList<Entry<T>> e = (ArrayList<Entry<T>>) entries;
-		return Collections.unmodifiableCollection((Collection<Entry<T>>) e
+	public Collection<Entry> getEntries() {
+		ArrayList<Entry> e = (ArrayList<Entry>) entries;
+		return Collections.unmodifiableCollection((Collection<Entry>) e
 				.clone());
 	}
 
-	private Unit unit;
-	private Collection<Entry<T>> entries = new ArrayList<Entry<T>>();
+	private CurrencyUnit unit;
+	private Collection<Entry> entries = new ArrayList<Entry>();
 
-	public void book(Entry<T> entry) {
+	public void book(Entry entry) {
 		assertSameUnit(entry);
 		entries.add(entry);
 	}
 
 	private void assertSameUnit(Entry entry) {
-		if (!unit.equals(entry.getQuantity().getUnit()))
+		if (!unit.equals(entry.getQuantity().getCurrencyUnit()))
 			throw new IllegalArgumentException();
 
 	}
@@ -67,19 +60,15 @@ public class DetailAccount<T extends Quantity> implements Account<T> {
 	 * 
 	 * @see de.gzockoll.accounting.Account#saldo()
 	 */
-	public Quantity balance() {
-		T result = getZeroBalance();
-		for (Entry<T> e : entries) {
+	public Money balance() {
+		Money result = Money.zero(unit);
+		for (Entry e : entries) {
 			if (result == null)
 				result = e.getQuantity();
 			else
-				result = (T) result.add(e.getQuantity());
+				result = result.plus(e.getQuantity());
 		}
 		return result;
-	}
-
-	public T getZeroBalance() {
-		return (T) unit.getZeroQuantity();
 	}
 
 	/*
@@ -97,12 +86,12 @@ public class DetailAccount<T extends Quantity> implements Account<T> {
 	 * @see de.gzockoll.accounting.Account#add(de.gzockoll.accounting.Entry)
 	 */
 	public void add(Entry entry) {
-		if (!unit.equals(entry.getQuantity().getUnit()))
+		if (!unit.equals(entry.getQuantity().getCurrencyUnit()))
 			throw new IllegalArgumentException("Entry has wrong unit: " + entry);
 		entries.add(entry);
 	}
 
-	public Unit getUnit() {
+	public CurrencyUnit getUnit() {
 		return unit;
 	}
 
@@ -116,8 +105,7 @@ public class DetailAccount<T extends Quantity> implements Account<T> {
 		return s.toString();
 	}
 
-	@Override
-	public void post(Entry<T> entry) {
+	public void post(Entry entry) {
 		add(entry);
 		
 	}

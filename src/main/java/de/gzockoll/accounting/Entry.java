@@ -2,22 +2,21 @@ package de.gzockoll.accounting;
 
 import java.util.Date;
 
-import de.gzockoll.quantity.Quantity;
-import de.gzockoll.types.money.Money;
+import org.joda.money.Money;
 
-public class Entry<T extends Quantity> {
+public class Entry {
 	private Date whenCharged;
 	private Date whenBooked;
 
-	private T quantity;
+	private Money quantity;
 	private String text;
-	private Account<T> account;
+	private Account account;
 
 	void setWhenCharged(Date whenCharged) {
 		this.whenCharged = whenCharged;
 	}
 
-	public Entry(Account<T> a,T quantity, String text) {
+	public Entry(Account a,Money quantity, String text) {
 		super();
 		this.account=a;
 		this.whenCharged = new Date();
@@ -25,7 +24,7 @@ public class Entry<T extends Quantity> {
 		this.text = text;
 	}
 
-	public Entry(T quantity, Date whenNoticed) {
+	public Entry(Money quantity, Date whenNoticed) {
 		this.quantity=quantity;
 		this.whenBooked=whenNoticed;
 	}
@@ -38,7 +37,7 @@ public class Entry<T extends Quantity> {
 		return whenBooked;
 	}
 
-	public T getQuantity() {
+	public Money getQuantity() {
 		return quantity;
 	}
 
@@ -46,7 +45,7 @@ public class Entry<T extends Quantity> {
 		return text;
 	}
 
-	public Entry<T> post() {
+	public Entry post() {
 		if (whenBooked != null)
 			throw new IllegalStateException("Already booked!");
 		whenBooked = new Date();
@@ -54,7 +53,7 @@ public class Entry<T extends Quantity> {
 		return this;
 	}
 
-	public Account<T> getAccount() {
+	public Account getAccount() {
 		return account;
 	}
 	

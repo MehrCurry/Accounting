@@ -3,7 +3,8 @@ package de.gzockoll.accounting;
 import java.util.HashMap;
 import java.util.Map;
 
-import de.gzockoll.quantity.Unit;
+import org.joda.money.CurrencyUnit;
+import org.osgi.util.measurement.Unit;
 
 public class AccountingPlan {
 	private static Map<String,Account> plan=new HashMap<String, Account>();
@@ -15,7 +16,7 @@ public class AccountingPlan {
 		return a;
 	}
 
-	public static SummaryAccount createSummaryAccount(String key, Unit unit) {
+	public static SummaryAccount createSummaryAccount(String key, CurrencyUnit unit) {
 		SummaryAccount a=new SummaryAccount(key,unit);
 		return (SummaryAccount) addAccount(key, a);
 	}
@@ -25,7 +26,7 @@ public class AccountingPlan {
 		return a;
 	}
 
-	public static DetailAccount createDetailAccount(String key, Unit unit) {
+	public static DetailAccount createDetailAccount(String key, CurrencyUnit unit) {
 		DetailAccount a=new DetailAccount(key,unit);
 		return (DetailAccount) addAccount(key, a);
 	}

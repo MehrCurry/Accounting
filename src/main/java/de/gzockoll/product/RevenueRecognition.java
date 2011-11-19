@@ -1,14 +1,13 @@
 package de.gzockoll.product;
 
+import org.joda.money.Money;
 import org.joda.time.ReadableDateTime;
 
-import de.gzockoll.quantity.Quantity;
-
 public class RevenueRecognition {
-	Quantity quantity;
+	Money quantity;
 	ReadableDateTime date;
 	
-	public RevenueRecognition(Quantity quantity, ReadableDateTime date) {
+	public RevenueRecognition(Money quantity, ReadableDateTime date) {
 		super();
 		this.quantity = quantity;
 		this.date = date;

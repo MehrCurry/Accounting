@@ -4,8 +4,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import de.gzockoll.common.types.TemporalCollection;
-
 @SuppressWarnings("rawtypes")
 public class ServiceAgreement {
 	private Map postingRules = new HashMap();

@@ -2,9 +2,8 @@ package de.gzockoll.accounting;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 
-import de.gzockoll.common.types.Timepoint;
+import org.joda.time.DateTime;
 
 public class AuditLog {
 	private static Collection<AuditLogEntry> log = new ArrayList<AuditLogEntry>();
@@ -24,11 +23,11 @@ public class AuditLog {
 	private static class AuditLogEntry {
 		private String text;
 		private Subject subject;
-		private Timepoint time;
+		private DateTime time;
 
 		private AuditLogEntry(String text, Subject subject) {
 			super();
-			this.time = new Timepoint(new Date());
+			this.time = new DateTime();
 			this.text = text;
 			this.subject = subject;
 		}

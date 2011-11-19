@@ -3,23 +3,22 @@ package de.gzockoll.accounting;
 import java.util.Collection;
 import java.util.HashSet;
 
-import de.gzockoll.common.types.Timepoint;
-import de.gzockoll.quantity.NullQuantity;
-import de.gzockoll.quantity.Quantity;
+import org.joda.money.Money;
+import org.joda.time.DateTime;
 
-public class AccountingTransaction<T extends Quantity> implements Subject {
-	private Timepoint date;
-	private Collection<Entry<T>> entries = new HashSet<Entry<T>>();
+public class AccountingTransaction implements Subject {
+	private DateTime date;
+	private Collection<Entry> entries = new HashSet<Entry>();
 	private boolean posted = false;
 
-	public AccountingTransaction(Timepoint date) {
+	public AccountingTransaction(DateTime date) {
 		super();
 		this.date = date;
 	}
 
-	public void add(T amount, Account<T> account, String text) {
+	public void add(Money amount, Account account, String text) {
 		assertNotPosted();
-		entries.add(new Entry<T>(account, amount, text));
+		entries.add(new Entry(account, amount, text));
 	}
 
 	private void assertCanPost() {
@@ -32,10 +31,13 @@ public class AccountingTransaction<T extends Quantity> implements Subject {
 	}
 
 	@SuppressWarnings("unchecked")
-	public T balance() {
-		T result=(T) new NullQuantity();
-		for (Entry<T> e : entries) {
-				result = (T) result.add(e.getQuantity());
+	public Money balance() {
+		Money result=null;
+		for (Entry e : entries) {
+				if (result==null)
+					result=e.getQuantity();
+				else
+					result = result.plus(e.getQuantity());
 		}
 		return result;
 	}
@@ -56,10 +58,10 @@ public class AccountingTransaction<T extends Quantity> implements Subject {
 		posted = true;
 	}
 
-	public AccountingTransaction<T> inverse(Timepoint d) {
-		AccountingTransaction<T> trans = new AccountingTransaction<T>(d);
-		for (Entry<T> e : entries) {
-			trans.add((T) e.getQuantity().negate(), e.getAccount(), "Storno: "
+	public AccountingTransaction inverse(DateTime d) {
+		AccountingTransaction trans = new AccountingTransaction(d);
+		for (Entry e : entries) {
+			trans.add(e.getQuantity().negated(), e.getAccount(), "Storno: "
 					+ e.getText());
 		}
 		return trans;
@@ -70,12 +72,10 @@ public class AccountingTransaction<T extends Quantity> implements Subject {
 		return "AccountingTransaction: posted=" + posted + ", Balance=" + balance() + ", Entries=" + entries.size();
 	}
 
-	@Override
 	public void addEntry(Entry newEntry, AccountType type) {
 		throw new UnsupportedOperationException("Not yet implemented");		
 	}
 
-	@Override
 	public void process(AccountingEvent accountingEvent) {
 		throw new UnsupportedOperationException("Not yet implemented");		
 	}

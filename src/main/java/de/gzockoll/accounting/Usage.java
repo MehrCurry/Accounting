@@ -1,19 +1,18 @@
 package de.gzockoll.accounting;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
-import de.gzockoll.quantity.Quantity;
-
 public class Usage extends AccountingEvent {
-	private Quantity amount;
+	private BigDecimal amount;
 
-	public Usage(Quantity amount, Date whenOccurred, Date whenNoticed,
+	public Usage(BigDecimal amount, Date whenOccurred, Date whenNoticed,
 			Customer customer) {
 		super(EventType.USAGE, whenOccurred, whenNoticed, customer);
 		this.amount = amount;
 	}
 
-	public Quantity getAmount() {
+	public BigDecimal getAmount() {
 		return amount;
 	}
 

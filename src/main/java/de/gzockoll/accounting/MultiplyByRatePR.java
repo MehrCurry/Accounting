@@ -1,6 +1,6 @@
 package de.gzockoll.accounting;
 
-import de.gzockoll.types.money.Money;
+import org.joda.money.Money;
 
 public class MultiplyByRatePR extends AbstractPostingRule {
 
@@ -8,7 +8,6 @@ public class MultiplyByRatePR extends AbstractPostingRule {
 		super(type, isTaxable);
 	}
 
-	@Override
 	public void processAccount(Account account) {
 		throw new UnsupportedOperationException();
 	}

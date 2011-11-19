@@ -1,12 +1,10 @@
 package de.gzockoll.accounting;
 
-import java.util.Currency;
 import java.util.HashMap;
 import java.util.Map;
 
-import de.gzockoll.quantity.Quantity;
-import de.gzockoll.types.money.CurrencyUnit;
-import de.gzockoll.types.money.Money;
+import org.joda.money.CurrencyUnit;
+import org.joda.money.Money;
 
 public class Customer implements Subject {
 	private ServiceAgreement serviceAgreement;
@@ -21,7 +19,7 @@ public class Customer implements Subject {
     void setUpAccounts() {
         accounts = new HashMap<AccountType, Account>();
         for (AccountType type : AccountType.values())
-            accounts.put(type, new DetailAccount(CurrencyUnit.EURO, type));
+            accounts.put(type, new DetailAccount(CurrencyUnit.EUR, type));
     }
     public Account accountFor(AccountType type) {
         assert accounts.containsKey(type);
@@ -30,7 +28,7 @@ public class Customer implements Subject {
     public void addEntry(Entry arg, AccountType type) {
         accountFor(type).post(arg);
     }
-    public Quantity balanceFor(AccountType key) {
+    public Money balanceFor(AccountType key) {
         return accountFor(key).balance();
     }
 	public ServiceAgreement getServiceAgreement() {
